@@ -60,7 +60,6 @@ const sunMat = new THREE.MeshBasicMaterial({
   map: sunMap
 })
 const sun = new THREE.Mesh(sunGeo, sunMat)
-
 scene.add(sun)
 
 function createPlanet(size, texture, position, ring) {
@@ -92,7 +91,7 @@ function createPlanet(size, texture, position, ring) {
     obj.add(ringMesh)
     // saturn.mesh.add(saturnRing)
     ringMesh.position.x = position
-    ringMesh.rotation.x = -0.5 * Math.PI
+    ringMesh.rotation.x = ring.direction * Math.PI
   }
   
   scene.add(obj)
@@ -108,12 +107,14 @@ const jupiter = createPlanet(12, jupiterTexture, 100)
 const saturn = createPlanet(10, saturnTexture, 138, {
   innerRadius: 10, 
   outerRadius: 20, 
-  texture: saturnRingTexture 
+  texture: saturnRingTexture,
+  direction: -0.5
 })
 const uranus = createPlanet(7, uranusTexture, 176, {
   innerRadius: 7,
   outerRadius: 12,
-  texture: uranusRingTexture
+  texture: uranusRingTexture,
+  direction: 1
 })
 const neptune = createPlanet(7, neptuneTexture, 200)
 const pluto = createPlanet(2.8, plutoTexture, 216)
@@ -141,8 +142,8 @@ function animate() {
   jupiter.obj.rotateY(0.002)
   saturn.obj.rotateY(0.0009)
   uranus.obj.rotateY(0.0004)
-  neptune.obj.rotateY(0.0001)
-  pluto.obj.rotateY(0.00007)
+  neptune.obj.rotateY(0.0003)
+  pluto.obj.rotateY(0.0002)
   renderer.render(scene, camera)
 }
 
